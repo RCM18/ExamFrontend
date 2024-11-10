@@ -1,0 +1,67 @@
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    <button pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-success"
+        (click)="showDialogCreate()" style="margin-bottom: 20px;"></button>
+
+    
+
+<p-table [value]="notas" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Nota1</th>
+            <th>Nota2</th>
+            <th>Nota3</th>
+            <th>Alumno</th>
+            <th>Curso</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-coche>
+        <tr>
+            <td>{{coche.id}}</td>
+            <td>{{coche.Nota1}}</td>
+            <td>{{coche.Nota2}}</td>
+            <td>{{coche.curso.nombre}}</td>
+            <td>{{coche.alumno.nombre}}</td>
+            <td>
+                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded"
+                    (click)="showDialogEdit(nota.id)"></button>
+                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                    (click)="deleteCoche(nota.id)"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
+
+<p-dialog header="{{titulo}}" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="nombre" class="font-semibold w-6rem">curso:</label>
+        <p-dropdown [options]="notas " [(ngModel)]="coche.curso" optionLabel="nombre" placeholder="Select Curso"
+            class="flex-auto" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="nombre" class="font-semibold w-6rem">alumno:</label>
+        <p-dropdown [options]="alumnos" [(ngModel)]="coche.alumno" optionLabel="nombre" placeholder="Select Alumno"
+            class="flex-auto" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="nombre" class="font-semibold w-6rem">Nota1:</label>
+        <input pInputText [(ngModel)]="coche.Nota1" name="nota 1" id="Nota1" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="nombre" class="font-semibold w-6rem">Nota2:</label>
+        <input pInputText [(ngModel)]="coche.Nota2" name="nota 2" id="Nota2" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="nombre" class="font-semibold w-6rem">Nota3:</label>
+        <input pInputText [(ngModel)]="coche.Nota3" name="nota 3" id="Nota3" class="flex-auto" autocomplete="off" />
+    </div>
+
+    <div class="flex justify-content-end gap-2">
+        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+        <p-button label="{{opc}}" (click)="opcion()" />
+    </div>
+</p-dialog>
+<p-toast />
+<p-confirmDialog />
